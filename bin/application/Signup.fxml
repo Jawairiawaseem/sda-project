@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFB6C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.sampleController{">
+<AnchorPane fx:id="confimSignupBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFB6C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.sampleController">
    <children>
       <Label layoutX="182.0" layoutY="41.0" text="ServEase">
          <font>
@@ -19,7 +20,7 @@
          </font>
       </Label>
       <TextField fx:id="email" layoutX="225.0" layoutY="200.0" />
-      <TextField fx:id="email1" layoutX="225.0" layoutY="250.0" />
+      <TextField fx:id="password" layoutX="225.0" layoutY="250.0" />
       <Label layoutX="153.0" layoutY="199.0" prefHeight="26.0" prefWidth="58.0" text="EMAIL" textAlignment="RIGHT">
          <font>
             <Font size="14.0" />
@@ -30,5 +31,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="confirmSignupBtn" layoutX="256.0" layoutY="299.0" mnemonicParsing="false" onAction="#confirmSignup" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: DE5D83;" text="SIGNUP" />
    </children>
 </AnchorPane>

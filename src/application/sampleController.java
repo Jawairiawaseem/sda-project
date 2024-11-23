@@ -25,8 +25,18 @@ public class sampleController
 	private Button customer;
 	@FXML
 	private Button admin;
-
-
+	@FXML
+	private TextField email;
+	@FXML 
+	private TextField password;
+	@FXML
+	private Button confirmSignupBtn;
+	@FXML
+	private Button confirmLoginBtn;
+	
+	String userEmail;
+	String userPass;
+	
 	@FXML
 	public void buttonclicked(ActionEvent event) {
 		Stage mainWindow = (Stage) tfTitle.getScene().getWindow();
@@ -57,6 +67,12 @@ public class sampleController
 		primaryStage.setTitle("LOGIN"); 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		 userEmail = email.getText();
+		 userPass = password.getText();
+		 
+		 //TEST IT AGAINST ALREADY STORED USERS
+		 //APPLY INPUT VALIDATION
+		
 	}
 	@FXML
 	public void loginAdmin() throws IOException
@@ -69,6 +85,11 @@ public class sampleController
 		primaryStage.setTitle("LOGIN"); 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		userEmail = email.getText();
+		userPass = password.getText();
+		
+		///APPLY INPUT VALIDATION
+		 
 	}
 	@FXML
 	public void signup() throws IOException
@@ -81,5 +102,57 @@ public class sampleController
 		primaryStage.setTitle("LOGIN"); 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		
+		//APPLY INPUT VALIDATION NO NUMBER WAGHAIRA
+		
+		//PROCEED TO LOGIN PAGE
+		userEmail = email.getText();
+		userPass = password.getText();
+		
+		
 	}
+	@FXML
+	public void confirmSignup() throws IOException
+	{
+		Stage stage = (Stage) confirmSignupBtn.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("LOGIN"); 
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		
+		//APPLY INPUT VALIDATION NO NUMBER WAGHAIRA
+		
+		//PROCEED TO LOGIN PAGE
+		userEmail = email.getText();
+		userPass = password.getText();
+		
+		
+	}
+	@FXML
+	public void confirmLogin() throws IOException
+	{
+		Stage stage = (Stage) confirmLoginBtn.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("LOGIN"); 
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		
+		//APPLY INPUT VALIDATION NO NUMBER WAGHAIRA
+		
+		//PROCEED TO LOGIN PAGE
+		userEmail = email.getText();
+		userPass = password.getText();
+		
+		
+	}
+	
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFB6C1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.sampleController">
+   <children>
+      <Label layoutX="265.0" layoutY="141.0" prefHeight="35.0" prefWidth="76.0" text="LOGIN" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <TextField fx:id="email" layoutX="233.0" layoutY="214.0" />
+      <Label layoutX="161.0" layoutY="213.0" prefHeight="26.0" prefWidth="58.0" text="EMAIL" textAlignment="RIGHT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="password" layoutX="233.0" layoutY="275.0" />
+      <Label layoutX="125.0" layoutY="274.0" prefHeight="26.0" prefWidth="82.0" text="PASSWORD" textAlignment="RIGHT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="190.0" layoutY="33.0" text="ServEase">
+         <font>
+            <Font name="System Bold Italic" size="58.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

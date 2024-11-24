@@ -1,11 +1,15 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -33,16 +37,51 @@ public class sampleController
 	private Button confirmSignupBtn;
 	@FXML
 	private Button confirmLoginBtn;
-	
+	@FXML
+	private Button browseServicesBtn;
+	@FXML
+	private Button getHelpBtn;
+	@FXML
+    private Button viewBookingHistoryBtn;
+    @FXML
+    private Button viewProfileBtn;
+    @FXML
+    private TableView<String[]> tableView;
+
+    @FXML
+    private TableColumn<String[], String> Category;
+
+    @FXML
+    private TableColumn<String[], String> Name;
+
+    @FXML
+    private TableColumn<String[], String> Rate;
+
 	String userEmail;
 	String userPass;
 	
-	@FXML
-	public void buttonclicked(ActionEvent event) {
-		Stage mainWindow = (Stage) tfTitle.getScene().getWindow();
-		String title = tfTitle.getText();
-		mainWindow.setTitle(title);
-	}
+	 @FXML
+	    public void initialize() {
+	        // Set up columns to bind to array indices
+	        Category.setCellValueFactory(cellData -> 
+	            new javafx.beans.property.SimpleStringProperty(cellData.getValue()[0]));
+	        Name.setCellValueFactory(cellData -> 
+	            new javafx.beans.property.SimpleStringProperty(cellData.getValue()[1]));
+	        Rate.setCellValueFactory(cellData -> 
+	            new javafx.beans.property.SimpleStringProperty(cellData.getValue()[2]));
+
+	        // Add junk data
+	        ObservableList<String[]> data = FXCollections.observableArrayList(
+	            new String[]{"Cleaning", "House Cleaning", "50"},
+	            new String[]{"Babysitting", "Child Care", "20"},
+	            new String[]{"Fitness", "Personal Trainer", "30"},
+	            new String[]{"Errands", "Grocery Delivery", "15"},
+	            new String[]{"Laundry", "Dry Cleaning", "10"}
+	        );
+
+	        // Set data in TableView
+	        tableView.setItems(data);
+	    }
 	@FXML
 	public void loginOrSignup() throws IOException
 	{
@@ -97,9 +136,9 @@ public class sampleController
 		Stage stage = (Stage) signupButton.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("LOGIN"); 
+		primaryStage.setTitle("SIGNUP"); 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -133,6 +172,7 @@ public class sampleController
 		
 		
 	}
+	
 	@FXML
 	public void confirmLogin() throws IOException
 	{
@@ -154,5 +194,43 @@ public class sampleController
 		
 		
 	}
+	@FXML
+    void browseServices(ActionEvent event) throws IOException
+	{
+		Stage stage = (Stage) browseServicesBtn.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("SERVICES"); 
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
+	@FXML
+    void ViewDetails(ActionEvent event) {
+
+    }
+
+    @FXML
+    void bookService(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void getHelp(ActionEvent event) throws IOException{
+
+    }
+
+    @FXML
+    void viewBookingHistory(ActionEvent event) throws IOException{
+
+    }
+
+    @FXML
+    void viewProfile(ActionEvent event) throws IOException{
+
+    }
+
 	
 }

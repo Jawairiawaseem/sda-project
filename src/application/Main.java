@@ -15,13 +15,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("RequestBooking.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("WELCOME"); 
 			primaryStage.setScene(scene);
 
 			primaryStage.show();
-	        System.out.println("Hello, World!"); // Prints with a new line
+	        //System.out.println("Hello, World!"); // Prints with a new line
 			
 			
 		} catch(Exception e) {

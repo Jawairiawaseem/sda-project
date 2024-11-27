@@ -10,10 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -22,26 +18,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.stream.IntStream;
-
 public class sampleController {
 	@FXML
 	private TextField tfTitle;
 	@FXML
 	private Button loginButton;
 	@FXML
-	private Button SPviewProfileBtn;
-	@FXML
-	
 	private Button signupButton;
 	@FXML
 	private Button serviceProvider;
@@ -72,19 +61,9 @@ public class sampleController {
 	@FXML
     private Button rebookServiceBtn;
 	@FXML
-	private Button goBackToServicesBtn;
-	
-	@FXML
 	private TableView<String[]> tableView;
 
-//	@FXML
-//	private TableColumn<String[], String> Category;
-//
-//	@FXML
-//	private TableColumn<String[], String> Name;
-//
-//	@FXML
-//	private TableColumn<String[], String> Rate;
+
 	@FXML
 	private TextField searchbar;
 	@FXML
@@ -95,84 +74,14 @@ public class sampleController {
 
 	String userEmail;
 	String userPass;
-	@FXML
-    private DatePicker datePicker;
+	int userID;
 
-    @FXML
-    private ComboBox<String> timeComboBox;
-
-    @FXML
-    private Spinner<Integer> hoursSpinner;
-
-//    @FXML
-//    public void initialize() {
-//        // Populate timeComboBox with times in 15-minute intervals
-//        timeComboBox.getItems().addAll(
-//            IntStream.range(0, 24)
-//                .flatMap(hour -> IntStream.of(0, 15, 30, 45).map(minute -> hour * 100 + minute))
-//                .mapToObj(time -> String.format("%02d:%02d", time / 100, time % 100))
-//                .toList()
-//        );
-//
-//        // Configure hoursSpinner to select hours between 1 and 24
-//        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 24, 1);
-//        hoursSpinner.setValueFactory(valueFactory);
-//    }
-
-    @FXML
-    public void handleSubmit() {
-        LocalDate selectedDate = datePicker.getValue();
-        String selectedTime = timeComboBox.getValue();
-        Integer selectedHours = hoursSpinner.getValue();
-
-        if (selectedDate != null && selectedTime != null && selectedHours != null) {
-            System.out.println("Selected Date: " + selectedDate);
-            System.out.println("Selected Time: " + selectedTime);
-            System.out.println("Selected Hours: " + selectedHours);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Incomplete Selection");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a date, time, and number of hours.");
-            alert.showAndWait();
-        }
-    }
-//	@FXML
-//	public void initialize() {
-//	    // Set up columns to bind to array indices
-//	    Category.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue()[0]));
-//	    Name.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue()[1]));
-//	    Rate.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue()[2]));
-//
-//	    // Add junk data
-//	    ObservableList<String[]> data = FXCollections.observableArrayList(
-//	        new String[]{"Cleaning", "House Cleaning", "50", "We provide professional house cleaning services."},
-//	        new String[]{"Babysitting", "Child Care", "20", "Reliable babysitters for your children."},
-//	        new String[]{"Fitness", "Personal Trainer", "30", "Get fit with our certified personal trainers."},
-//	        new String[]{"Errands", "Grocery Delivery", "15", "We deliver groceries to your doorstep."},
-//	        new String[]{"Laundry", "Dry Cleaning", "10", "Affordable dry cleaning services."}
-//	    );
-//
-//	    // Set data in TableView
-//	    tableView.setItems(data);
-//	}
 	@FXML
     private Button acceptRequestBtn;
 
     @FXML
     private TableView<?> bookingRequests;
 
-//    @FXML
-//    private TableColumn<?, ?> date;
-//
-//    @FXML
-//    private TableColumn<?, ?> duration;
-//
-//    @FXML
-//    private TableColumn<?, ?> rate;
-//
-//    @FXML
-//    private TableColumn<?, ?> service;
 
     @FXML
     private Button viewClientProfileBtn;
@@ -202,8 +111,7 @@ public class sampleController {
 	}
 	@FXML
     private Button addOfferBtn;
-	 @FXML
-	 private TableView<BuiltInService> builtInServices;
+
     @FXML
     private TableColumn<BuiltInService, String> category;
 
@@ -213,43 +121,23 @@ public class sampleController {
     @FXML
     private TableColumn<BuiltInService, String> service;
 
-   
+    @FXML
+    private TableView<BuiltInService> builtInServices;
     
     private ObservableList<BuiltInService> serviceList = FXCollections.observableArrayList();
+    
+
+    
+    
+    
 
 //    public void initialize() {
-//        // Check if service, description, and category are not null before setting
-//        if (service != null && description != null && category != null) {
-//            service.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-//            description.setCellValueFactory(new PropertyValueFactory<>("description"));
-//            category.setCellValueFactory(new PropertyValueFactory<>("category"));
-//        }
+//        service.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+//        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+//        category.setCellValueFactory(new PropertyValueFactory<>("category"));
 //        loadDataFromDatabase();
-//        
+//
 //    }
-    @FXML
-    void goBackToSPHomePage(ActionEvent event) throws IOException {
-    	Stage stage = (Stage) goBack.getScene().getWindow();
-		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("SPHomePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Home Page");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
-    }
-    @FXML
-    void goBackToServices() throws IOException{
-    	Stage stage = (Stage) goBackToServicesBtn.getScene().getWindow();
-		stage.close();
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("Services.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Home Page");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
     private void loadDataFromDatabase() {
         String query = "SELECT * FROM BuiltInService";
 
@@ -262,7 +150,6 @@ public class sampleController {
                 String serviceName = resultSet.getString("serviceName");
                 String description = resultSet.getString("description");
                 String category = resultSet.getString("category");
-                System.out.println(serviceName);
 
                 BuiltInService service = new BuiltInService(serviceId, serviceName, description, category);
                 serviceList.add(service);
@@ -282,17 +169,27 @@ public class sampleController {
 		Stage primaryStage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("OfferServices.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Offer Services");
+		primaryStage.setTitle("Login or Signup");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
     }
 	@FXML
 	public void loginOrSignup() throws IOException {
-		Stage stage = (Stage) serviceProvider.getScene().getWindow();
+		Stage stage = (Stage) customer.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("loginOrSignup.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("Login or Signup");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	@FXML
+	public void SPLoginOrSignup() throws IOException {
+		Stage stage = (Stage) serviceProvider.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("SPLoginOrSignup.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Login or Signup");
 		primaryStage.setScene(scene);
@@ -309,13 +206,20 @@ public class sampleController {
 		primaryStage.setTitle("LOGIN");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		userEmail = email.getText();
-		userPass = password.getText();
-		
-		
 
-		// TEST IT AGAINST ALREADY STORED USERS
-		// APPLY INPUT VALIDATION
+	}
+	@FXML
+    private Button SPLoginButton;
+	@FXML
+	public void SPLogin() throws IOException {
+		Stage stage = (Stage) SPLoginButton.getScene().getWindow();
+		stage.close();
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("SPLogin.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("LOGIN");
+		primaryStage.setScene(scene);
+		primaryStage.show();
 
 	}
 
@@ -324,15 +228,11 @@ public class sampleController {
 		Stage stage = (Stage) admin.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("AdminLogin.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("LOGIN");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		userEmail = email.getText();
-		userPass = password.getText();
-
-		/// APPLY INPUT VALIDATION
 
 	}
 
@@ -353,59 +253,185 @@ public class sampleController {
 		userEmail = email.getText();
 		userPass = password.getText();
 
-	}
 
-	@FXML
-	public void confirmSignup() throws IOException {
-		Stage stage = (Stage) confirmSignupBtn.getScene().getWindow();
+	}
+    @FXML
+    private TextField name;
+
+    @FXML
+    private TextField phone;
+ // Helper method to validate email format
+    private boolean isValidEmail(String email) {
+        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+    }
+
+    // Helper method to validate phone number format
+    private boolean isValidPhone(String phone) {
+        return phone.matches("\\d{11}");
+    }
+
+    // Helper method to show alerts
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Helper method to clear input fields
+    private void clearFields() {
+        name.clear();
+        email.clear();
+        password.clear();
+        phone.clear();
+    }
+
+    @FXML
+    private void confirmSignup() {//customer signup
+        // Retrieve input values
+        String customerName = name.getText().trim();
+        String customerEmail = email.getText().trim();
+        String customerPassword = password.getText().trim();
+        String customerPhone = phone.getText().trim();
+
+        // Validate inputs
+        if (customerName.isEmpty() || customerEmail.isEmpty() || customerPassword.isEmpty() || customerPhone.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please fill out all fields.");
+            return;
+        }
+
+        if (!isValidEmail(customerEmail)) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Invalid email format.");
+            return;
+        }
+
+        if (customerPassword.length() < 6) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Password must be at least 6 characters long.");
+            return;
+        }
+
+        if (!isValidPhone(customerPhone)) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Invalid phone number format.");
+            return;
+        }
+
+        // Create a new Customer object
+        Customer newCustomer = new Customer(customerName, customerEmail, customerPassword, customerPhone);
+
+        // Add customer to the database
+        boolean isSuccess = newCustomer.saveToDatabase();
+
+        if (isSuccess) {
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Customer registered successfully!");
+            clearFields();
+
+            // Navigate back to login screen
+            navigateToLogin();
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to register customer. Try again.");
+        }
+    }
+
+    private void navigateToLogin() {
+        try {
+            // Load the login screen
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent loginParent = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) name.getScene().getWindow();
+
+            // Set the new scene (login screen)
+            Scene loginScene = new Scene(loginParent);
+            currentStage.setScene(loginScene);
+
+            // Optionally, you can set the stage title for the login screen
+            currentStage.setTitle("Login");
+
+            // Show the login scene
+            currentStage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load login screen.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private Button SPSignupButton;
+
+    
+
+    @FXML
+    void SPSignup(ActionEvent event) throws IOException{
+    	Stage stage = (Stage) SPSignupButton.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("SPSignup.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("LOGIN");
+		primaryStage.setTitle("SIGNUP");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		// APPLY INPUT VALIDATION NO NUMBER WAGHAIRA
+    }
 
-		// PROCEED TO LOGIN PAGE
-		userEmail = email.getText();
-		userPass = password.getText();
+    @FXML
+    public void confirmLogin() throws IOException {
+        userEmail = email.getText();
+        userPass = password.getText();
+        
+        Customer loggedInCustomer = Customer.login(userEmail, userPass);
 
-	}
+        if (loggedInCustomer != null) {
+            // Store the logged-in customer in AppData
+            AppData.setLoggedInCustomer(loggedInCustomer);
 
-	@FXML
-	public void confirmLogin() throws IOException {
-		
-		userEmail = email.getText();
-		userPass = password.getText();
-		Customer loggedInCustomer = null;
-		loggedInCustomer = Customer.login(userEmail,userPass);
-		if(loggedInCustomer!=null) {
-			Stage stage = (Stage) confirmLoginBtn.getScene().getWindow();
-			stage.close();
-			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("CustomerHomePage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setTitle("HOME");
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
-		else
-		{
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-		    alert.setTitle("Invalid login details");
-		    alert.setHeaderText(null); // You can leave the header text empty or provide a custom message
-		    alert.setContentText("Please check your email and password and try again.");
-		    alert.showAndWait();
-		}
-		
-		// APPLY INPUT VALIDATION NO NUMBER WAGHAIRA
+            Stage stage = (Stage) confirmLoginBtn.getScene().getWindow(); // Use correct button ID
+            stage.close();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("CustomerHomePage.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("HOME");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid login details");
+            alert.setHeaderText(null);
+            alert.setContentText("Please check your email and password and try again.");
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private Button SPConfirmLoginBtn;
+    @FXML
+    public void SPConfirmLogin() throws IOException {
+        userEmail = email.getText();
+        userPass = password.getText();
+        System.out.println(userEmail);
+        ServiceProvider loggedInSP = ServiceProvider.login(userEmail, userPass);
 
-		// PROCEED TO LOGIN PAGE
-		
-		
-	}
+        if (loggedInSP != null) {
+            // Store the logged-in customer in AppData
+            AppData.setLoggedInSP(loggedInSP);
+            
+            Stage stage = (Stage) SPConfirmLoginBtn.getScene().getWindow(); // Use correct button ID
+            stage.close();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("SPHomePage.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("HOME");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid login details");
+            alert.setHeaderText(null);
+            alert.setContentText("Please check your email and password and try again.");
+            alert.showAndWait();
+        }
+    }
+
+
 
 	@FXML
 	void browseServices(ActionEvent event) throws IOException {
@@ -483,24 +509,107 @@ public class sampleController {
 		System.out.println("Hello, World!");
 
 	}
-	
 	@FXML
-	void SPviewProfile(ActionEvent event) throws IOException {
-		Stage stage = (Stage) SPviewProfileBtn.getScene().getWindow();
+    private Button goBacktoSPHP;
+	@FXML
+    void goBackToSPHomePage() throws IOException{
+		Stage stage = (Stage) goBacktoSPHP.getScene().getWindow();
 		stage.close();
 		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("SPViewProfile.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("SPHomePage.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("PROFIL");
+		primaryStage.setTitle("HOME");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		System.out.println("Hello, World!");
-
-	}
-
+    }
+	   @FXML
+	    private Button SPviewProfileBtn;
+	   @FXML
+	    void SPviewProfile() throws IOException{
+		   Stage stage = (Stage) SPviewProfileBtn.getScene().getWindow();
+			stage.close();
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("SPViewProfile.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setTitle("PROFILE");
+			primaryStage.setScene(scene);
+			primaryStage.show();
+	    }
 
 	@FXML
 	void rebookService(ActionEvent event) {
 
+    }@FXML
+    private TextField adminEmail;
+
+    @FXML
+    private TextField adminPassword;
+
+    // Handle login action
+    @FXML
+    private void confirmAdminLogin() {
+        String email = adminEmail.getText().trim();
+        String password = adminPassword.getText().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter both email and password.");
+            return;
+        }
+
+        AdminDBHandler dbHandler = new AdminDBHandler();
+        Admin admin = dbHandler.getAdminByEmail(email);
+
+        if (admin != null) {
+            // Check if password is not null and matches
+            if (admin.getPassword() != null && admin.getPassword().equals(password)) {
+                // Login successful, load Admin Dashboard
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+                    Stage stage = (Stage) adminEmail.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Login Failed", "Admin not found.");
+        }
+    }
+
+
+    @FXML
+    private Button viewCustomersBtn;
+    @FXML
+    private Button viewServiceProvidersBtn;
+    
+    @FXML
+    private void viewCustomers() {
+        // You can replace this with actual functionality to show customer data
+        showAlert(Alert.AlertType.INFORMATION, "View Customers", "Displaying all customers...");
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("CustomerList.fxml"));
+            Stage stage = (Stage) viewCustomersBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void viewServiceProviders() {
+        // You can replace this with actual functionality to show service providers data
+        showAlert(Alert.AlertType.INFORMATION, "View Service Providers", "Displaying all service providers...");
+
+        // If you want to redirect to a new scene (Service provider list):
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("ServiceProviderList.fxml"));
+            Stage stage = (Stage) viewServiceProvidersBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
